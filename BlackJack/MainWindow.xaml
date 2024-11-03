@@ -1,0 +1,50 @@
+﻿<Window x:Class="BlackJack.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BlackJack"
+        mc:Ignorable="d"
+        Title="BlackJack" Height="500" Width="800" Background="Green">
+    <Grid>
+        <!-- Dealer's Area -->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
+            <TextBlock Text="Dealer's Cards" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,0,0,10"/>
+            <ItemsControl Name="DealerCards" HorizontalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            <TextBlock Name="DealerScore" Text="Score: 0" FontSize="14" Foreground="White" Margin="0,10,0,0"/>
+        </StackPanel>
+
+        <!-- Player's Area -->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+            <TextBlock Text="Player's Cards" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,0,0,10"/>
+            <ItemsControl Name="PlayerCards" HorizontalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            <TextBlock Name="PlayerScore" Text="Score: 0" FontSize="14" Foreground="White" Margin="0,10,0,0"/>
+        </StackPanel>
+
+        <!-- Controls -->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <TextBlock Text="Bet Amount:" FontSize="14" Foreground="White" Margin="0,0,10,0"/>
+                <TextBox Name="BetAmount" Width="100" Margin="0,0,10,0"/>
+                <TextBlock Name="PlayerBalance" Text="Balance: $1000" FontSize="14" Foreground="White"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button Name="DealButton" Content="Deal" Width="100" Margin="10" Background="Black" Foreground="White" Click="DealButton_Click"/>
+                <Button Name="HitButton" Content="Hit" Width="100" Margin="10" Background="Black" Foreground="White" Click="HitButton_Click"/>
+                <Button Name="StandButton" Content="Stand" Width="100" Margin="10" Background="Black" Foreground="White" Click="StandButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
