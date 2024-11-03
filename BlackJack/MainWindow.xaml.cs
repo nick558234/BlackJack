@@ -21,8 +21,11 @@ namespace BlackJack
         public MainWindow()
         {
             InitializeComponent();
+            deck = new List<(string Suit, string Rank, int Value)>();
+            playerCards = new List<(string Suit, string Rank, int Value)>();
+            dealerCards = new List<(string Suit, string Rank, int Value)>();
             playerBalance = 1000; // Initial balance
-            NewGame();
+            UpdateUI();
         }
 
         private void NewGame()
@@ -33,7 +36,6 @@ namespace BlackJack
             playerScore = 0;
             dealerScore = 0;
             isGameOver = false;
-            currentBet = 0;
 
             DealInitialCards();
             UpdateUI();
@@ -113,7 +115,7 @@ namespace BlackJack
             PlayerCards.ItemsSource = null;
             PlayerCards.ItemsSource = playerCards;
             DealerCards.ItemsSource = null;
-            DealerCards.ItemsSource = isGameOver ? dealerCards : new List<(string Suit, string Rank, int Value)> { dealerCards.First() };
+            DealerCards.ItemsSource = isGameOver ? dealerCards : new List<(string Suit, string Rank, int Value)> { dealerCards.FirstOrDefault() };
             PlayerScore.Text = $"Score: {playerScore}";
             DealerScore.Text = isGameOver ? $"Score: {dealerScore}" : "Score: ?";
             PlayerBalance.Text = $"Balance: ${playerBalance}";
@@ -129,12 +131,14 @@ namespace BlackJack
             }
             else
             {
-                MessageBox.Show($"Ongeldige inzet. Voer een geldig bedrag in.");
+                MessageBox.Show("Ongeldige inzet. Voer een geldig bedrag in.");
             }
         }
 
         private void HitButton_Click(object sender, RoutedEventArgs e)
         {
+            if (isGameOver) return;
+
             playerCards.Add(DrawCard());
             CalculateScores();
             UpdateUI();
@@ -144,12 +148,13 @@ namespace BlackJack
                 MessageBox.Show("Speler gaat kapot! Dealer wint.");
                 isGameOver = true;
                 UpdateUI();
-                NewGame();
             }
         }
 
         private void StandButton_Click(object sender, RoutedEventArgs e)
         {
+            if (isGameOver) return;
+
             while (dealerScore < 17)
             {
                 dealerCards.Add(DrawCard());
@@ -163,7 +168,7 @@ namespace BlackJack
             if (dealerScore > 21 || playerScore > dealerScore)
             {
                 MessageBox.Show("Speler wint!");
-                playerBalance += currentBet * 2;
+                playerBalance += currentBet * 2; // Player wins, double the bet amount
             }
             else if (playerScore < dealerScore)
             {
@@ -175,7 +180,7 @@ namespace BlackJack
                 playerBalance += currentBet; // Return the bet amount
             }
 
-            NewGame();
+            UpdateUI(); // Ensure the balance is updated in the UI
         }
     }
 }
