@@ -57,7 +57,7 @@ namespace BlackJack
                 }
             }
 
-            return deck.OrderBy(_ => random.Next()).ToList();
+            return deck.OrderBy(card => random.Next()).ToList();
         }
 
         private (string Suit, string Rank, int Value) DrawCard()
