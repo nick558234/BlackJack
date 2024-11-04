@@ -56,7 +56,7 @@ namespace BlackJack
                     deck.Add((suit, ranks[i], values[i]));
                 }
             }
-
+            
             return deck.OrderBy(card => random.Next()).ToList();
         }
 
@@ -76,7 +76,7 @@ namespace BlackJack
         {
             dealerCards.Add(DrawCard());
             playerCards.Add(DrawCard());
-            playerCards.Add(DrawCard());
+            playerCards.Add(DrawCard());//word 2 keer uitgevoerd zodat de speler 2 kaarten krijgt
 
             CalculateScores();
         }
